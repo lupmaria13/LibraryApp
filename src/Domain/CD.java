@@ -5,6 +5,8 @@ public class CD extends LibraryItem {
     private int numberOfSongs;
     private String label;
     private double duration;
+    private boolean isLoaned;
+    private boolean isReserved;
 
     public CD(int yearOfPublication, String title, String author) {
         super(yearOfPublication, title, author);
@@ -16,6 +18,23 @@ public class CD extends LibraryItem {
         this.numberOfSongs = numberOfSongs;
         this.label = label;
         this.duration = duration;
+        this.isLoaned=false;
+        this.isReserved = false;
+    }
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
+    }
+
+    public boolean isLoaned() {
+        return isLoaned;
+    }
+
+    public void setLoaned(boolean loaned) {
+        this.isLoaned = loaned;
     }
 
     public String getTypeOfMusic() {

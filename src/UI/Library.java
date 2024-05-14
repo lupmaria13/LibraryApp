@@ -185,7 +185,7 @@ public class Library {
         System.out.println("Type: " + foundBook.getType());
         System.out.println("Color: " + foundBook.getColor());
         System.out.println("Year of publication: " + foundBook.getYearOfPublication());
-        System.out.println("Number of songs: " + foundBook.getNumberOfPages());
+        System.out.println("Number of pages: " + foundBook.getNumberOfPages());
     }
 
     public void getAllBooks() {
@@ -197,13 +197,13 @@ public class Library {
             System.out.println("Type: " + book.getType());
             System.out.println("Color: " + book.getColor());
             System.out.println("Year of publication: " + book.getYearOfPublication());
-            System.out.println("Number of songs: " + book.getNumberOfPages());
+            System.out.println("Number of pages: " + book.getNumberOfPages());
             System.out.println("______________________");
         }
     }
 
     public void getAllCDs() {
-        System.out.println("____________CDs informations__________");
+        System.out.println("____________CDs information__________");
         List<CD> cdList = libraryService.getAllCDs();
         for (CD cd : cdList) {
             System.out.println("Title: " + cd.getTitle());
@@ -214,6 +214,88 @@ public class Library {
             System.out.println("Number of songs: " + cd.getNumberOfSongs());
             System.out.println("Duration: " + cd.getDuration());
             System.out.println("______________________");
+        }
+    }
+//--------------------------------------------
+public void findBooksByAuthor() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Enter the author's name:");
+    String author = scanner.nextLine();
+    List<Book> bookList = libraryService.findBooksByAuthor(author);
+    if (bookList.isEmpty()) {
+        System.out.println("No books found for author: " + author);
+    } else {
+        for (Book book : bookList) {
+            System.out.println(book); // Asigură-te că metoda toString() din Book este implementată adecvat
+        }
+    }
+}
+
+    public void searchCDsByGenre() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the music genre:");
+        String genre = scanner.nextLine();
+        List<CD> cds = libraryService.searchCDsByGenre(genre);
+        if (cds.isEmpty()) {
+            System.out.println("No CDs found for genre: " + genre);
+        } else {
+            for (CD cd : cds) {
+                System.out.println(cd);
+            }
+        }
+    }
+
+    public void loanBook() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title of the book to loan:");
+        String title = scanner.nextLine();
+        libraryService.loanBook(title);
+    }
+
+    public void returnBook() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title of the book to return:");
+        String title = scanner.nextLine();
+        libraryService.returnBook(title);
+    }
+    public void loanCD() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title of the CD to loan:");
+        String title = scanner.nextLine();
+        libraryService.loanCD(title);
+    }
+
+    public void returnCD() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title of the CD to return:");
+        String title = scanner.nextLine();
+        libraryService.returnCD(title);
+    }
+    public void reserveBook() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title of the book to reserve:");
+        String title = scanner.nextLine();
+        libraryService.reserveBook(title);
+    }
+
+    public void reserveCD() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title of the CD to reserve:");
+        String title = scanner.nextLine();
+        libraryService.reserveCD(title);
+    }
+
+    public void getallloanbooks() {
+      List<Book> loanedBook = libraryService.getallloanbooks();
+      for (Book book: loanedBook) {
+          System.out.println(book);
+      }
+    }
+
+    public void getallloanCDs() {
+        List<CD> loanedCD = libraryService.getallloanCDs();
+        for (CD cd: loanedCD) {
+            System.out.println(cd);
         }
     }
 
@@ -230,18 +312,31 @@ public class Library {
         System.out.println(" 9.Find CD ");
         System.out.println(" 10.Show of all CD ");
         System.out.println(" 11.Search books by author ");
-        System.out.println(" 12.Search for CDs by music genre ");
+        System.out.println(" 12.Search CDs by music genre ");
         System.out.println(" 13.Book loan ");
         System.out.println(" 14.Book return ");
         System.out.println(" 15.CD loan ");
         System.out.println(" 16.CD return ");
-        System.out.println(" 17.Search books by author ");
-        System.out.println(" 28.Search CDs by music genre ");
-        System.out.println(" 29.Book reservation ");
-        System.out.println(" 20.CD reservation");
+        System.out.println(" 17.Book reservation ");
+        System.out.println(" 18.CD reservation");
+        System.out.println(" 19. Show all loan books");
+        System.out.println(" 20. Show all loan CDs ");
     }
     public void run(){
         boolean ready=false;
+        libraryService.createCD(1982, "Thriller", "Michael Jackson", "Pop", 9, "Epic Records", 42.28);
+        libraryService.createCD(1980, "Back in Black", "AC/DC", "Hard Rock", 10, "Atlantic Records", 42.11);
+        libraryService.createCD(1969, "Abbey Road", "The Beatles", "Rock", 17, "Apple Records", 47.23);
+        libraryService.createCD(1973, "The Dark Side of the Moon", "Pink Floyd", "Progressive Rock", 10, "Harvest Records", 42.49);
+        libraryService.createCD(1977, "Rumours", "Fleetwood Mac", "Rock", 11, "Warner Bros. Records", 39.31);
+
+        libraryService.createBook(1997, "Harry Potter and the Philosopher's Stone", "J.K. Rowling", "Fantasy", 223, "Black");
+        libraryService.createBook(1960, "To Kill a Mockingbird", "Harper Lee", "Fiction", 281, "Red");
+        libraryService.createBook(1949, "1984", "George Orwell", "Dystopian", 328, "Blue");
+        libraryService.createBook(1865, "Alice's Adventures in Wonderland", "Lewis Carroll", "Fantasy", 272, "Yellow");
+        libraryService.createBook(1954, "The Lord of the Rings", "J.R.R. Tolkien", "Fantasy", 1178, "Green");
+
+
         while(!ready){
             menu();
             String option;
@@ -289,10 +384,51 @@ public class Library {
                     getAllCDs();
                     break;
                 }
+                case "11":{
+                    findBooksByAuthor();
+                    break;
+                }
+                case "12":{
+                    searchCDsByGenre();
+                    break;
+                }
+                case "13":{
+                    loanBook();
+                    break;
+                }
+                case "14":{
+                    returnBook();
+                    break;
+                }
+                case "15":{
+                    loanCD();
+                    break;
+                }
+                case "16":{
+                    returnCD();
+                    break;
+                }
+                case "17":{
+                    reserveBook();
+                    break;
+                }
+                case "18":{
+                    reserveCD();
+                    break;
+                }
+                case "19":{
+                    getallloanbooks();
+                    break;
+                }
+                case "20":{
+                    getallloanCDs();
+                    break;
+                }
                 case "0":{
                     ready=true;
                     break;
                 }
+
 
             }
         }

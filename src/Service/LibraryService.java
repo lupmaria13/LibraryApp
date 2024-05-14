@@ -65,6 +65,45 @@ public class LibraryService {
     public List<CD> getAllCDs(){
         return cdRepository.getAllItems();
     }
+    public List<Book> findBooksByAuthor(String author){
+        return bookRepository.findBooksByAuthor(author);
+    }
+    public List<CD> searchCDsByGenre(String genre) {
+        return cdRepository.findCDsByGenre(genre);
+    }
+
+    public void loanBook(String title) {
+        bookRepository.loanBook(title);
+    }
+
+    public void returnBook(String title) {
+        bookRepository.returnBook(title);
+    }
+    public void loanCD(String title) {
+        cdRepository.loanCD(title);
+    }
+
+    public void returnCD(String title) {
+        cdRepository.returnCD(title);
+    }
+    public void reserveBook(String title) {
+        bookRepository.reserveBook(title);
+    }
+
+    public void reserveCD(String title) {
+        cdRepository.reserveCD(title);
+    }
+
+    public  List<Book> getallloanbooks() {
+     return bookRepository.getallloanbooks();
+    }
+    public  List<CD> getallloanCDs() {
+        return cdRepository.getallloanCDs();
+    }
 
 }
+//----------------
+
+
+
 

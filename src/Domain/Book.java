@@ -4,6 +4,8 @@ public class Book extends LibraryItem {
      private String type;
      private int numberOfPages;
      private String color;
+     private boolean isLoaned;
+     private boolean isReserved;
 
      public Book(int yearOfPublication, String title, String author) {
           super(yearOfPublication, title, author);
@@ -14,6 +16,8 @@ public class Book extends LibraryItem {
           this.type = type;
           this.numberOfPages = numberOfPages;
           this.color = color;
+          this.isLoaned=false;
+          this.isReserved=false;
      }
 
      public String getType() {
@@ -38,6 +42,21 @@ public class Book extends LibraryItem {
 
      public void setColor(String color) {
           this.color = color;
+     }
+
+     public boolean isLoaned() {
+          return isLoaned;
+     }
+
+     public void setLoaned(boolean loaned) {
+          this.isLoaned = loaned;
+     }
+     public boolean isReserved() {
+          return isReserved;
+     }
+
+     public void setReserved(boolean reserved) {
+          isReserved = reserved;
      }
 
      @Override
