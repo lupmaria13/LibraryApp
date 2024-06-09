@@ -35,21 +35,12 @@ public class Library {
     }
     public void updateBook(){
         Scanner scanner= new Scanner(System.in);
-        int yearOfPublicationOld,numberOfPagesOld;
-        String titleOld, authorOld, typeOld, colorOld;
+
+        String titleOld;
         System.out.println("______________________");
         System.out.println("Old title:  ");
         titleOld=scanner.next();
-        System.out.println("Old Author: ");
-        authorOld=scanner.next();
-        System.out.println("Old type:  ");
-        typeOld=scanner.next();
-        System.out.println("Old color: ");
-        colorOld=scanner.next();
-        System.out.println("Old year of publication: ");
-        yearOfPublicationOld=scanner.nextInt();
-        System.out.println("Old number of pages: ");
-        numberOfPagesOld=scanner.nextInt();
+
 
         int yearOfPublicationNew,numberOfPagesNew;
         String titleNew, authorNew, typeNew, colorNew;
@@ -66,7 +57,7 @@ public class Library {
         yearOfPublicationNew=scanner.nextInt();
         System.out.println("New number of pages: ");
         numberOfPagesNew=scanner.nextInt();
-        libraryService.updateBook(yearOfPublicationOld,titleOld,authorOld,typeOld,numberOfPagesOld,colorOld,yearOfPublicationNew,titleNew,authorNew,typeNew,numberOfPagesNew,colorNew );
+        libraryService.updateBook(yearOfPublicationNew,titleNew,authorNew,typeNew,numberOfPagesNew,colorNew,titleOld);
 
 
     }
@@ -97,24 +88,10 @@ public class Library {
 
     public void updateCD(){
         Scanner scanner= new Scanner(System.in);
-        int yearOfPublicationOld, numberOfSongsOld;
-        String titleOld, authorOld, typeOfMusicOld, labelOld;
-        double durationOld;
+        String titleOld;
         System.out.println("______________________");
         System.out.println("Old Title: ");
         titleOld=scanner.next();
-        System.out.println("Old Author: ");
-        authorOld=scanner.next();
-        System.out.println("Old music type: ");
-        typeOfMusicOld=scanner.next();
-        System.out.println("Old label: ");
-        labelOld=scanner.next();
-        System.out.println("Old year of publication: ");
-        yearOfPublicationOld=scanner.nextInt();
-        System.out.println("Old number of songs: ");
-        numberOfSongsOld=scanner.nextInt();
-        System.out.println("Old duration: ");
-        durationOld=scanner.nextInt();
 
         int yearOfPublicationNew, numberOfSongsNew;
         String titleNew, authorNew, typeOfMusicNew, labelNew;
@@ -134,7 +111,7 @@ public class Library {
         numberOfSongsNew=scanner.nextInt();
         System.out.println("New duration: ");
         durationNew=scanner.nextInt();
-        libraryService.updateCD(yearOfPublicationOld,titleOld,authorOld,typeOfMusicOld,numberOfSongsOld,labelOld,durationOld, yearOfPublicationNew,titleNew,authorNew,typeOfMusicNew,numberOfSongsNew,labelNew,durationNew);
+        libraryService.updateCD(yearOfPublicationNew,titleNew,authorNew,typeOfMusicNew,numberOfSongsNew,labelNew,durationNew, titleOld);
     }
 
     public void deleteBook(){
@@ -286,14 +263,14 @@ public void findBooksByAuthor() {
     }
 
     public void getallloanbooks() {
-      List<Book> loanedBook = libraryService.getallloanbooks();
+      List<Book> loanedBook = libraryService.getAllLoanBooks();
       for (Book book: loanedBook) {
           System.out.println(book);
       }
     }
 
     public void getallloanCDs() {
-        List<CD> loanedCD = libraryService.getallloanCDs();
+        List<CD> loanedCD = libraryService.getAllLoanCDs();
         for (CD cd: loanedCD) {
             System.out.println(cd);
         }

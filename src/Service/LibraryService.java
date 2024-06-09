@@ -4,14 +4,15 @@ import Domain.Book;
 import Domain.CD;
 import Repository.BookRepository;
 import Repository.CDRepository;
+import Repository.Repository;
 
 import java.util.List;
 
 public class LibraryService {
-    private BookRepository bookRepository;
-    private CDRepository cdRepository;
+    private final Repository <Long,Book> bookRepository;
+    private final Repository <Long,CD> cdRepository;
 
-    public LibraryService(BookRepository bookRepository, CDRepository cdRepository) {
+    public LibraryService(Repository <Long,Book> bookRepository, Repository <Long,CD> cdRepository) {
         this.bookRepository = bookRepository;
         this.cdRepository = cdRepository;
     }
@@ -22,21 +23,21 @@ public class LibraryService {
         bookRepository.addItem(book);
 
     }
-    public void updateBook(int yearOfPublicationOld, String titleOld, String authorOld, String typeOld, int numberOfPagesOld, String colorOld, int yearOfPublicationNew, String titleNew, String authorNew, String typeNew, int numberOfPagesNew, String colorNew){
+    public void updateBook(int yearOfPublicationNew, String titleNew, String authorNew, String typeNew, int numberOfPagesNew, String colorNew, String titleOld){
         Book bookNew= new Book(yearOfPublicationNew,titleNew,authorNew,typeNew,numberOfPagesNew,colorNew);
-        Book bookOld= new Book(yearOfPublicationOld,titleOld,authorOld,typeOld,numberOfPagesOld,colorOld);
-        bookRepository.updateItem(bookOld,bookNew);
-
+        List<Book> list = bookRepository.findByTitle(titleOld);
+        bookNew.setId(list.get(0).getId());
+        bookRepository.updateItem(bookNew);
     }
 
     public void deleteBook(String title){
-        Book book= bookRepository.findItem(title);
-        bookRepository.removeItem(book);
+        List<Book> list = bookRepository.findByTitle(title);
+        bookRepository.removeItem(list.get(0).getId());
 
     }
     public Book findBook( String title){
-        Book book= bookRepository.findItem(title);
-         return book;
+        List<Book> list = bookRepository.findByTitle(title);
+         return list.get(0);
     }
 
     public void createCD(int yearOfPublication, String title, String author, String typeOfMusic, int numberOfSongs, String label, double duration){
@@ -44,18 +45,20 @@ public class LibraryService {
          cdRepository.addItem(cdNew);
     }
 
-    public void updateCD(int yearOfPublicationNew, String titleNew, String authorNew, String typeOfMusicNew, int numberOfSongsNew, String labelNew, double durationNew, int yearOfPublicationOld, String titleOld, String authorOld, String typeOfMusicOld, int numberOfSongsOld, String labelOld, double durationOld){
+    public void updateCD(int yearOfPublicationNew, String titleNew, String authorNew, String typeOfMusicNew, int numberOfSongsNew, String labelNew, double durationNew,  String titleOld){
         CD cdNew= new CD(yearOfPublicationNew, titleNew, authorNew, typeOfMusicNew, numberOfSongsNew, labelNew, durationNew);
-        CD cdOld = new CD(yearOfPublicationOld, titleOld, authorOld, typeOfMusicOld, numberOfSongsOld, labelOld, durationOld);
-        cdRepository.updateItem(cdOld, cdNew);
+        List<CD> list = cdRepository.findByTitle(titleOld);
+        cdNew.setId(list.get(0).getId());
+        cdRepository.updateItem(cdNew);
     }
     public void deleteCD(String title){
-        CD cd =cdRepository.findItem(title);
-        cdRepository.removeItem(cd);
+        List<CD> list = cdRepository.findByTitle(title);
+        cdRepository.removeItem(list.get(0).getId());
+
     }
     public CD findCD(String title){
-        CD cd =cdRepository.findItem(title);
-        return cd;
+        List<CD> list = cdRepository.findByTitle(title);
+        return list.get(0);
 
     }
 
@@ -66,39 +69,39 @@ public class LibraryService {
         return cdRepository.getAllItems();
     }
     public List<Book> findBooksByAuthor(String author){
-        return bookRepository.findBooksByAuthor(author);
+        return bookRepository.findByAuthor(author);
     }
     public List<CD> searchCDsByGenre(String genre) {
         return cdRepository.findCDsByGenre(genre);
     }
 
     public void loanBook(String title) {
-        bookRepository.loanBook(title);
+        bookRepository.loan(title);
     }
 
     public void returnBook(String title) {
-        bookRepository.returnBook(title);
+        bookRepository.returnLoan(title);
     }
     public void loanCD(String title) {
-        cdRepository.loanCD(title);
+        cdRepository.loan(title);
     }
 
     public void returnCD(String title) {
-        cdRepository.returnCD(title);
+        cdRepository.returnLoan(title);
     }
     public void reserveBook(String title) {
-        bookRepository.reserveBook(title);
+        bookRepository.reserved(title);
     }
 
     public void reserveCD(String title) {
-        cdRepository.reserveCD(title);
+        cdRepository.reserved(title);
     }
 
-    public  List<Book> getallloanbooks() {
-     return bookRepository.getallloanbooks();
+    public  List<Book> getAllLoanBooks() {
+     return bookRepository.getAllItems();
     }
-    public  List<CD> getallloanCDs() {
-        return cdRepository.getallloanCDs();
+    public  List<CD> getAllLoanCDs() {
+        return cdRepository.getAllLoanCDs();
     }
 
 }

@@ -1,23 +1,60 @@
 package Domain;
 
-public class Book extends LibraryItem {
+public class Book extends Entity<Long> {
      private String type;
      private int numberOfPages;
      private String color;
      private boolean isLoaned;
      private boolean isReserved;
+     private int yearOfPublication;
+     private String title;
+     private String author;
 
-     public Book(int yearOfPublication, String title, String author) {
-          super(yearOfPublication, title, author);
-     }
-
-     public Book(int yearOfPublication, String title, String author, String type, int numberOfPages, String color) {
-          super(yearOfPublication, title, author);
+     public Book(int yearOfPublication, String title, String author, String type, int numberOfPages,  String color) {
           this.type = type;
           this.numberOfPages = numberOfPages;
           this.color = color;
-          this.isLoaned=false;
-          this.isReserved=false;
+          this.isLoaned = false;
+          this.isReserved = false;
+          this.yearOfPublication = yearOfPublication;
+          this.title = title;
+          this.author = author;
+
+     }
+
+     public Book(String type, int numberOfPages, String color, boolean isLoaned, boolean isReserved) {
+          this.type = type;
+          this.numberOfPages = numberOfPages;
+          this.color = color;
+          this.isLoaned = isLoaned;
+          this.isReserved = isReserved;
+     }
+
+     public Book() {
+     }
+
+     public int getYearOfPublication() {
+          return yearOfPublication;
+     }
+
+     public void setYearOfPublication(int yearOfPublication) {
+          this.yearOfPublication = yearOfPublication;
+     }
+
+     public String getTitle() {
+          return title;
+     }
+
+     public void setTitle(String title) {
+          this.title = title;
+     }
+
+     public String getAuthor() {
+          return author;
+     }
+
+     public void setAuthor(String author) {
+          this.author = author;
      }
 
      public String getType() {
